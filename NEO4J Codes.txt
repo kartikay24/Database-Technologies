@@ -1,0 +1,38 @@
+//CREATING NODES
+CREATE (a:Artist{Name:"BTS"})
+CREATE (b:Album{Name:"Dynamite"})
+
+//CREATING MULTIPLE NODES
+
+//RELATIONSHIP
+MATCH (a:Artist),(b:Album) 
+WHERE a.Name="BTS" AND b.Name="Dynamite"
+CREATE(a)-[r:RELEASED]->(b) 
+RETURN r
+
+//DELETING ALL NODES
+MATCH (n) DETACH DELETE (n)
+
+//UPDATING VALUES(APPENDS EXTRA VALUES until we delete the already existing values seperately)
+
+MATCH (a:Artist{Name:"BTS"})
+SET a.Artist='BLACKPINK'
+RETURN a.Artist
+
+//Order by-adding one or more nodes for inserting new values
+CREATE (b:Album{Name:"Disco"})
+MATCH(b:Album)
+RETURN b.Name
+ORDER BY b.name
+
+//MATCH AND DELETE
+
+MATCH()-[r:RELEASED]-()  //deleting relationship
+DELETE r
+
+MATCH(a:Artist{Name:"BTS"}) DELETE a //deleting already existing node 
+
+MATCH (a:Artist{Name:"BLACKPINK"}),(b:Album{Name:"Dynamite"}) DELETE a,b
+//deleting updated node and the other already existing node
+
+//(DELETE THE RELATIONSHIP:If node does'nt get deleted we eed to delete relationship first)
